@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baca Buku - TechLibris</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reader.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>TechLibris</h1>
+        <input type="text" id="searchBar" placeholder="🔍 Cari buku...">
+        <button id="logoutBtn" onclick="goBack()">Logout</button>
+    </header>
+
+    <main id="pdfViewer">
+        <canvas id="pdfCanvas"></canvas>
+        <div class="controls">
+            <button onclick="prevPage()">Sebelumnya</button>
+            <span id="pageNum">Halaman 1</span>
+            <button onclick="nextPage()">Berikutnya</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Tentang Kami</h3>
+                <p>E-Perpus adalah platform perpustakaan digital yang menyediakan berbagai buku dalam format digital untuk pembelajaran yang lebih mudah dan praktis.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Dukungan</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Bantuan</a></li>
+                    <li><a href="#">Hubungi Kami</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                    <li><a href="#">Hak Cipta</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Ikuti Kami</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>             
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 E-Perpus | Dibuat dengan ❤️ oleh MHTeams</p>
+        </div>
+    </footer>
+
+    <!-- Gunakan type="module" untuk PDF.js -->
+    <script type="module">
+        import * as pdfjsLib from "./pdfjs/pdf.mjs";
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs/pdf.worker.mjs";
+
+        let pdfDoc = null,
+            pageNum = 1,
+            canvas = document.getElementById("pdfCanvas"),
+            ctx = canvas.getContext("2d"),
+            selectedBook = localStorage.getItem("selectedBook");
+
+        if (!selectedBook) {
+            alert("Silakan pilih buku terlebih dahulu.");
+            window.location.href = "index.html";
+        }
+
+        pdfjsLib.getDocument(selectedBook).promise.then((pdf) => {
+            pdfDoc = pdf;
+            renderPage(pageNum);
+        });
+
+        function renderPage(num) {
+            pdfDoc.getPage(num).then((page) => {
+                let viewport = page.getViewport({ scale: 1.5 });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                let renderContext = { canvasContext: ctx, viewport: viewport };
+                page.render(renderContext);
+
+                document.getElementById("pageNum").textContent = `Halaman ${num} / ${pdfDoc.numPages}`;
+            });
+        }
+
+        window.prevPage = function () {
+            if (pageNum > 1) {
+                pageNum--;
+                renderPage(pageNum);
+            }
+        };
+
+        window.nextPage = function () {
+            if (pageNum < pdfDoc.numPages) {
+                pageNum++;
+                renderPage(pageNum);
+            }
+        };
+
+        window.goBack = function () {
+            window.location.href = "index.html";
+        };
+    </script>
+</body>
+</html>

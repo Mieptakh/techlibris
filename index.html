@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Daftar Buku - TechLibris | Perpustakaan Digital Cerdas</title>
+        
+        <meta name="description" content="TechLibris adalah perpustakaan digital inovatif yang menyediakan berbagai koleksi buku dalam format digital untuk pembelajaran yang lebih mudah dan praktis.">
+        <meta name="keywords" content="perpustakaan digital, e-book, TechLibris, daftar buku, teknologi, rekayasa teknologi">
+        <meta name="author" content="TechLibris Team">
+        
+        <!-- Open Graph Meta Tags (untuk tampilan di media sosial) -->
+        <meta property="og:title" content="Daftar Buku - TechLibris">
+        <meta property="og:description" content="Temukan koleksi buku digital terbaik di TechLibris, perpustakaan digital inovatif yang menghubungkan teknologi dan pengetahuan.">
+        <meta property="og:image" content="https://techlibris.rf.gd/images/preview.png">
+        <meta property="og:url" content="https://techlibris.rf.gd/index">
+        <meta property="og:type" content="website">
+    
+        <!-- Twitter Card (untuk tampilan di Twitter) -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Daftar Buku - TechLibris">
+        <meta name="twitter:description" content="Jelajahi berbagai koleksi buku digital dengan mudah di TechLibris.">
+        <meta name="twitter:image" content="https://techlibris.rf.gd/images/preview.png">
+    
+        <!-- Favicon -->
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+        <!-- Canonical URL (agar tidak dianggap duplikat) -->
+        <link rel="canonical" href="https://techlibris.rf.gd/index">
+    </head>
+    
+<body>
+    <header>
+        <h1>TechLibris</h1>
+        <input type="text" id="searchBar" placeholder="🔍 Cari buku...">
+        <button id="logoutBtn">Logout</button>
+    </header>
+
+    <main>
+        <h2>Pilih Buku untuk Dibaca</h2>
+        <div class="category-container">
+            <button class="category-btn" onclick="filterBooks('all')">📚 Semua</button>
+            <button class="category-btn" onclick="filterBooks('Pemrograman')">💻 Pemrograman</button>
+            <button class="category-btn" onclick="filterBooks('Web Development')">🌐 Web Development</button>
+            <button class="category-btn" onclick="filterBooks('Algoritma')">🔢 Algoritma</button>
+        </div>
+        <div class="book-list">
+            <!-- Buku akan dimuat secara dinamis oleh JavaScript -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Tentang Kami</h3>
+                <p>E-Perpus adalah platform perpustakaan digital yang menyediakan berbagai buku dalam format digital untuk pembelajaran yang lebih mudah dan praktis.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Dukungan</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Bantuan</a></li>
+                    <li><a href="#">Hubungi Kami</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                    <li><a href="#">Hak Cipta</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Ikuti Kami</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>             
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 E-Perpus | Dibuat dengan ❤️ oleh MHTeams</p>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
