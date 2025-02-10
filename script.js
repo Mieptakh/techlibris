@@ -39,28 +39,28 @@ const books = [
     { 
         title: "JavaScript untuk Pemula", 
         file: "books/book2.pdf", 
-        cover: "covers/javascript.jpg", 
+        cover: "covers/javascript.png", 
         description: "Pahami dasar-dasar JavaScript dengan mudah dan cepat.",
         category: "Web Development"
     },
     { 
         title: "Pemrograman Python", 
         file: "books/book3.pdf", 
-        cover: "covers/python.jpg", 
+        cover: "covers/python.png", 
         description: "Pelajari bahasa Python dari dasar hingga mahir.",
         category: "Pemrograman"
     },
     { 
         title: "Algoritma dan Struktur Data", 
         file: "books/book4.pdf", 
-        cover: "covers/algoritma.jpg", 
+        cover: "covers/algoritma.png", 
         description: "Konsep dan implementasi algoritma serta struktur data.",
         category: "Algoritma"
     },
     { 
         title: "Pengembangan Web dengan Laravel", 
         file: "books/book5.pdf", 
-        cover: "covers/laravel.jpg", 
+        cover: "covers/laravel.png", 
         description: "Membangun aplikasi web modern dengan framework Laravel.",
         category: "Web Development"
     }

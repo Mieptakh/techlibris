@@ -28,7 +28,7 @@
         <div class="footer-container">
             <div class="footer-section">
                 <h3>Tentang Kami</h3>
-                <p>E-Perpus adalah platform perpustakaan digital yang menyediakan berbagai buku dalam format digital untuk pembelajaran yang lebih mudah dan praktis.</p>
+                <p>TechLibris adalah platform perpustakaan digital yang menyediakan berbagai buku dalam format digital untuk pembelajaran yang lebih mudah dan praktis.</p>
             </div>
             <div class="footer-section">
                 <h3>Dukungan</h3>
@@ -57,62 +57,69 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 E-Perpus | Dibuat dengan ❤️ oleh MHTeams</p>
+            <p>&copy; 2025 TechLibris | Dibuat dengan ❤️ oleh MHTeams</p>
         </div>
     </footer>
-
     <!-- Gunakan type="module" untuk PDF.js -->
     <script type="module">
-        import * as pdfjsLib from "./pdfjs/pdf.mjs";
+import * as pdfjsLib from "./pdfjs/pdf.mjs";
 
-        pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs/pdf.worker.mjs";
+pdfjsLib.GlobalWorkerOptions.workerSrc = "./pdfjs/pdf.worker.mjs";
 
-        let pdfDoc = null,
-            pageNum = 1,
-            canvas = document.getElementById("pdfCanvas"),
-            ctx = canvas.getContext("2d"),
-            selectedBook = localStorage.getItem("selectedBook");
+let pdfDoc = null,
+    pageNum = 1,
+    canvas = document.getElementById("pdfCanvas"),
+    ctx = canvas.getContext("2d"),
+    selectedBook = localStorage.getItem("selectedBook");
 
-        if (!selectedBook) {
-            alert("Silakan pilih buku terlebih dahulu.");
-            window.location.href = "index.html";
-        }
+if (!selectedBook) {
+    alert("Silakan pilih buku terlebih dahulu.");
+    window.location.href = "index.html";
+}
 
-        pdfjsLib.getDocument(selectedBook).promise.then((pdf) => {
-            pdfDoc = pdf;
-            renderPage(pageNum);
+pdfjsLib.getDocument(selectedBook).promise.then((pdf) => {
+    pdfDoc = pdf;
+    renderPage(pageNum);
+});
+
+function renderPage(num) {
+    pdfDoc.getPage(num).then((page) => {
+        let viewport = page.getViewport({ scale: 1.5 });
+
+        // Pastikan ukuran canvas sesuai dengan viewport PDF
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        let renderContext = { canvasContext: ctx, viewport: viewport };
+
+        // Gunakan requestAnimationFrame untuk rendering lebih smooth
+        requestAnimationFrame(() => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            page.render(renderContext);
         });
 
-        function renderPage(num) {
-            pdfDoc.getPage(num).then((page) => {
-                let viewport = page.getViewport({ scale: 1.5 });
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
+        document.getElementById("pageNum").textContent = `Halaman ${num} / ${pdfDoc.numPages}`;
+    });
+}
 
-                let renderContext = { canvasContext: ctx, viewport: viewport };
-                page.render(renderContext);
+// Fungsi untuk navigasi halaman
+window.prevPage = function () {
+    if (pageNum > 1) {
+        pageNum--;
+        renderPage(pageNum);
+    }
+};
 
-                document.getElementById("pageNum").textContent = `Halaman ${num} / ${pdfDoc.numPages}`;
-            });
-        }
+window.nextPage = function () {
+    if (pageNum < pdfDoc.numPages) {
+        pageNum++;
+        renderPage(pageNum);
+    }
+};
 
-        window.prevPage = function () {
-            if (pageNum > 1) {
-                pageNum--;
-                renderPage(pageNum);
-            }
-        };
-
-        window.nextPage = function () {
-            if (pageNum < pdfDoc.numPages) {
-                pageNum++;
-                renderPage(pageNum);
-            }
-        };
-
-        window.goBack = function () {
-            window.location.href = "index.html";
-        };
+window.goBack = function () {
+    window.location.href = "index.html";
+};
     </script>
 </body>
 </html>
